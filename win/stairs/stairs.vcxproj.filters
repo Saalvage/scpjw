@@ -2,5 +2,18 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\src\Main.cpp" />
+    <ClCompile Include="..\..\src\World\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="World">
+      <UniqueIdentifier>{b8ecc65b-cb6f-4cdd-b9f1-4cec38ad5ebc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\World\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

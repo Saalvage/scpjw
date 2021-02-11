@@ -1,8 +1,10 @@
 #include <Init/Init.h>
 
-#include <iostream>
+#include "World/World.h"
 
 int PGEMain::Main() {
-	std::cout << "test" << std::endl;
+	World* world = new World();
+	world->run();
+	delete world;
 	return 0;
 }
