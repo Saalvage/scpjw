@@ -42,6 +42,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibPNG", "..\eng\Libraries\FreeImage3180\Source\LibPNG\LibPNG.2017.vcxproj", "{7DB10B50-CE00-4D7A-B322-6824F05D2FCB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stairs", "stairs.vcxproj", "{3A4B2002-761E-48FB-B168-2041795C458F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86FA7807-97DD-432B-BAFD-4B8304762DEA} = {86FA7807-97DD-432B-BAFD-4B8304762DEA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew_static", "..\eng\Libraries\glew-2.1.0\build\vc12\glew_static.vcxproj", "{664E6F0D-6784-4760-9565-D54F8EB1EDF4}"
 EndProject
