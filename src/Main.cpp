@@ -4,7 +4,7 @@
 
 int PGEMain::Main() {
 	World* world = new World();
-	world->run();
+	while (world->run());
 	delete world;
 	return 0;
 }

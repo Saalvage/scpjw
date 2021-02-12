@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Main.cpp" />
-    <ClCompile Include="..\..\src\World\World.cpp" />
+    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\World\World.h" />
+    <ClInclude Include="..\src\World\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -80,23 +80,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../eng/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,8 +109,14 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;../$(Platform)/$(Configuration)/Engine.lib;../$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;../../eng/Libraries/FreeImage3180/Win32/Debug/FreeImaged.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImaged.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
+if $(ConfigurationName) == Debug xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImaged.dll" "$(TargetDir)"
+if $(ConfigurationName) == Release xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImage.dll" "$(TargetDir)"
+"$(ProjectDir)..\eng\Windows\BuildShaders\$(Platform)\$(Configuration)\BuildShaders.exe"  "$(TargetDir)Shaders"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -118,7 +124,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Windows;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -127,8 +133,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;../$(Platform)/$(Configuration)/Engine.lib;../$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;../../eng/Libraries/FreeImage3180/Win32/Release/FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImage.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
+if $(ConfigurationName) == Debug xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImaged.dll" "$(TargetDir)"
+if $(ConfigurationName) == Release xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImage.dll" "$(TargetDir)"
+"$(ProjectDir)..\eng\Windows\BuildShaders\$(Platform)\$(Configuration)\BuildShaders.exe"  "$(TargetDir)Shaders"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -141,8 +153,15 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;../$(Platform)/$(Configuration)/Engine.lib;../$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;../../eng/Libraries/FreeImage3180/x64/Debug/FreeImaged.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x64/FreeImaged.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
+if $(ConfigurationName) == Debug xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImaged.dll" "$(TargetDir)"
+if $(ConfigurationName) == Release xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImage.dll" "$(TargetDir)"
+"$(ProjectDir)..\eng\Windows\BuildShaders\$(Platform)\$(Configuration)\BuildShaders.exe"  "$(TargetDir)Shaders"</Command>
+      <Message>Copy Contents files and DLLs to output directory and run BuildShaders.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,7 +169,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Windows;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -159,8 +178,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;../$(Platform)/$(Configuration)/Engine.lib;../$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;../../eng/Libraries/FreeImage3180/x64/Release/FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x64/FreeImage.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
+if $(ConfigurationName) == Debug xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImaged.dll" "$(TargetDir)"
+if $(ConfigurationName) == Release xcopy /d /s /y "$(ProjectDir)..\Engine\Libraries\FreeImage3180\$(Platform)\$(Configuration)\FreeImage.dll" "$(TargetDir)"
+"$(ProjectDir)..\eng\Windows\BuildShaders\$(Platform)\$(Configuration)\BuildShaders.exe"  "$(TargetDir)Shaders"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

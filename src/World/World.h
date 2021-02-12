@@ -5,7 +5,7 @@ class World {
 	public:
 		World();
 		~World();
-		void run();
+		bool run();
 
 	private:
 		PGE::Graphics* graphics;
