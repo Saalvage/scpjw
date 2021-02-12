@@ -1,3 +1,0 @@
-PGE::Exception
-ShaderDX11::ShaderDX11
-Vertex shader is empty (filename: C:/Users/saalv/Desktop/stairs/win/Shaders/UI/)
