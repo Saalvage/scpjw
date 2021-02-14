@@ -7,6 +7,8 @@
 
 static PGE::Mesh* lol;
 static PGE::Mesh* sus;
+static PGE::Shader* aaa;
+static PGE::Shader* bbb;
 
 World::World() {
 	graphics = PGE::Graphics::create(PGE::Graphics::Renderer::Vulkan, "SCP-087-B: Remastered", 1280, 720, false);
@@ -15,12 +17,12 @@ World::World() {
 
 	lol = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
 
-	PGE::Shader* aaa = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/UI/"));
+	aaa = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/UI/"));
 	aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
 	aaa->getVertexShaderConstant("projectionMatrix")->setValue(PGE::Matrix4x4f::constructOrthographicMat(1280, 720, 0.01f, 200.f));
 	lol->setMaterial(new PGE::Material(aaa));
 
-	PGE::Shader* bbb = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/Test/"));
+	bbb = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/Test/"));
 	sus = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
 	sus->setMaterial(new PGE::Material(bbb));
 	std::vector<PGE::Vertex> lola;
@@ -60,11 +62,24 @@ World::World() {
 }
 
 World::~World() {
+	delete sus;
+	delete lol;
+	delete aaa;
+	delete bbb;
 	delete graphics;
 	delete io;
 }
 
+static auto timet = std::chrono::high_resolution_clock::now() += std::chrono::seconds(1);
+static int fps = 0;
+
 bool World::run() {
+	if ((std::chrono::high_resolution_clock::now() - timet).count() >= 0) {
+		timet = std::chrono::high_resolution_clock::now() += std::chrono::seconds(1);
+		std::cout << fps << std::endl;
+		fps = 0;
+	}
+	fps++;
 	SysEvents::update();
 	graphics->update();
 	graphics->clear(PGE::Color::Green);
