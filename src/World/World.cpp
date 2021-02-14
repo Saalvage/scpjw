@@ -6,9 +6,10 @@
 #include <iostream>
 
 static PGE::Mesh* lol;
+static PGE::Mesh* sus;
 
 World::World() {
-	graphics = PGE::Graphics::create(PGE::Graphics::Renderer::OpenGL, "SCP-087-B: Remastered", 1280, 720, false);
+	graphics = PGE::Graphics::create(PGE::Graphics::Renderer::Vulkan, "SCP-087-B: Remastered", 1280, 720, false);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
 	io = PGE::IO::create(graphics->getWindow());
 
@@ -18,6 +19,17 @@ World::World() {
 	aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
 	aaa->getVertexShaderConstant("projectionMatrix")->setValue(PGE::Matrix4x4f::constructOrthographicMat(1280, 720, 0.01f, 200.f));
 	lol->setMaterial(new PGE::Material(aaa));
+
+	PGE::Shader* bbb = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/Test/"));
+	sus = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
+	sus->setMaterial(new PGE::Material(bbb));
+	std::vector<PGE::Vertex> lola;
+	std::vector<PGE::Primitive> a;
+	lola.push_back(PGE::Vertex());
+	lola.push_back(PGE::Vertex());
+	lola.push_back(PGE::Vertex());
+	a.push_back(PGE::Primitive(0, 1, 2));
+	sus->setGeometry(3, lola, 1, a);
 
 	PGE::Rectanglef rec = PGE::Rectanglef(0, 0, 600, 50);
 	std::vector<PGE::Vertex> vertices;
@@ -56,7 +68,8 @@ bool World::run() {
 	SysEvents::update();
 	graphics->update();
 	graphics->clear(PGE::Color::Green);
-	lol->render();
+	//lol->render();
+	sus->render();
 	graphics->swap(false);
 	return graphics->getWindow()->isOpen();
 }

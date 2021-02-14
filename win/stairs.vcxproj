@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;opengl32.lib;$(Platform)/$(Configuration)/glew32sd.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImaged.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;opengl32.lib;$(Platform)/$(Configuration)/glew32sd.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib32/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImaged.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
@@ -139,7 +139,7 @@ if $(ConfigurationName) == Release xcopy /d /s /y "$(ProjectDir)$(Platform)\$(Co
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;opengl32.lib;$(Platform)/$(Configuration)/glew32sd.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImage.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;opengl32.lib;$(Platform)/$(Configuration)/glew32sd.lib;$(Platform)/$(Configuration)/Engine.lib;$(Platform)/$(Configuration)/SDL2.lib;$(VK_SDK_PATH)/Lib32/vulkan-1.lib;%(AdditionalDependencies);../eng/Libraries/FreeImage3180/Dist/x32/FreeImage.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /s /y "$(ProjectDir)..\res\*" "$(TargetDir)"
