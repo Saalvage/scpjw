@@ -1,7 +1,9 @@
+[[vk::push_constant]]
 cbuffer cbMatrices {
     matrix projectionMatrix;
 };
 
+[[vk::push_constant]]
 cbuffer cbFragment {
     float4 imageColor;
 };
