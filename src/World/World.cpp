@@ -11,7 +11,7 @@ static PGE::Shader* aaa;
 static PGE::Shader* bbb;
 
 World::World() {
-	graphics = PGE::Graphics::create("SCP-087-B: Remastered", 1280, 720, false, PGE::Graphics::Renderer::DirectX11);
+	graphics = PGE::Graphics::create("SCP-087-B: Remastered", 1280, 720, false, PGE::Graphics::Renderer::OpenGL);
 	graphics->setVsync(false);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
 	io = PGE::IO::create(graphics);
