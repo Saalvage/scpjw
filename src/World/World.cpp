@@ -11,24 +11,41 @@ static PGE::Shader* aaa;
 static PGE::Shader* bbb;
 
 World::World() {
-	graphics = PGE::Graphics::create(PGE::Graphics::Renderer::Vulkan, "SCP-087-B: Remastered", 1280, 720, false);
+	graphics = PGE::Graphics::create("SCP-087-B: Remastered", 1280, 720, false, PGE::Graphics::Renderer::DirectX11);
+	graphics->setVsync(false);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
-	io = PGE::IO::create(graphics->getWindow());
+	io = PGE::IO::create(graphics);
 
 	lol = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
 
 	aaa = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/UI/"));
-	//aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
-	//aaa->getVertexShaderConstant("projectionMatrix")->setValue(PGE::Matrix4x4f::constructOrthographicMat(1280, 720, 0.01f, 200.f));
+	aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
+	aaa->getVertexShaderConstant("projectionMatrix")->setValue(PGE::Matrix4x4f::constructOrthographicMat(1280, 720, 0.01f, 200.f));
 	lol->setMaterial(new PGE::Material(aaa));
 
 	bbb = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/Test/"));
-	bbb->getFragmentShaderConstant("test")->setValue(PGE::Color::Blue);
-	bbb->getVertexShaderConstant("asd")->setValue(1.f);
+	//bbb->getFragmentShaderConstant("test")->setValue(PGE::Color::Blue);
+	//bbb->getVertexShaderConstant("asd")->setValue(1.f);
 	sus = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
 	sus->setMaterial(new PGE::Material(bbb));
+	std::vector<PGE::Vertex> lola;
+	std::vector<PGE::Primitive> lolb;
+	PGE::Vertex a;
+	a.setVector2f("position", PGE::Vector2f(0.0f, -0.5f));
+	a.setVector3f("color", PGE::Vector3f(1, 0, 0));
+	lola.push_back(a);
+	PGE::Vertex b;
+	b.setVector2f("position", PGE::Vector2f(0.5f, 0.5f));
+	b.setVector3f("color", PGE::Vector3f(0, 1, 0));
+	lola.push_back(b);
+	PGE::Vertex c;
+	c.setVector2f("position", PGE::Vector2f(-0.5f, 0.5f));
+	c.setVector3f("color", PGE::Vector3f(0, 0, 1));
+	lola.push_back(c);
+	lolb.push_back(PGE::Primitive(0, 1, 2));
+	sus->setGeometry(lola, lolb);
 
-	PGE::Rectanglef rec = PGE::Rectanglef(0, 0, 0.5f, 0.5f);
+	PGE::Rectanglef rec = PGE::Rectanglef(0, 0, 0.5f, 50);
 	std::vector<PGE::Vertex> vertices;
 	for (int i = 0; i < 4; i++) {
 		PGE::Vertex v;
@@ -48,15 +65,12 @@ World::World() {
 				pos = rec.bottomRightCorner();
 		}
 		v.setVector2f("position", pos);
-		v.setVector3f("color", PGE::Vector3f(0.f, 0.f, 0.f));
 		vertices.push_back(v);
 	}
-	vertices[1].setVector3f("color", PGE::Vector3f(0.f, 1.f, 0.f));
 	std::vector<PGE::Primitive> primitives;
-	primitives.push_back(PGE::Primitive(1, 2, 0));
-	primitives.push_back(PGE::Primitive(3, 2, 1));
-	sus->setGeometry(vertices, primitives);
-	lol->setGeometry(vertices, primitives);
+	primitives.push_back(PGE::Primitive(2, 1, 0));
+	primitives.push_back(PGE::Primitive(1, 2, 3));
+	lol->setGeometry(4, vertices, 2, primitives);
 }
 
 World::~World() {
@@ -80,9 +94,9 @@ bool World::run() {
 	fps++;
 	SysEvents::update();
 	graphics->update();
-	graphics->clear(PGE::Color(0, 255, 255, 128));
-	lol->render();
+	graphics->clear(PGE::Color::Green);
+	//lol->render();
 	sus->render();
 	graphics->swap();
-	return graphics->getWindow()->isOpen();
+	return graphics->isWindowOpen();
 }
