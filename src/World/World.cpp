@@ -12,12 +12,12 @@ static PGE::Shader* aaa;
 static PGE::Shader* bbb;
 
 World::World() {
-	graphics = PGE::Graphics::create("SCP-087-B: Remastered", 1280, 720, false, PGE::Graphics::Renderer::OpenGL);
+	graphics = PGE::Graphics::create("SCP-087-B: Remastered", 1280, 720, false, PGE::Graphics::Renderer::Vulkan);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
 	graphics->setVsync(false);
 	io = PGE::IO::create(graphics);
 
-	//lol = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
+	//lol = PGE::Mesh::createRef(graphics, PGE::Primitive::TYPE::TRIANGLE);
 
 	//aaa = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/UI/"));
 	//aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
@@ -105,8 +105,8 @@ bool World::run() {
 	graphics->update();
 	graphics->clear(PGE::Color::Green);
 	//lol->render();
-	//bbb->getVertexShaderConstant("bbbb")->setValue(PGE::Vector4f(0, pos, 0, 0));
-	pos += (dir ? 0.01f : -0.01f) * ((double)(std::chrono::high_resolution_clock::now() - stupidTime).count())/10000000;
+	bbb->getVertexShaderConstant("bbbb")->setValue(PGE::Vector4f(0, pos, 0, 0));
+	pos += (dir ? 0.01f : -0.01f) * ((float)(std::chrono::high_resolution_clock::now() - stupidTime).count())/10000000;
 	stupidTime = std::chrono::high_resolution_clock::now();
 	if (pos < -0.5f || pos > 0.5f) {
 		dir = !dir;
