@@ -66,8 +66,6 @@ World::~World() {
 	delete io;
 }
 
-#include <Math/Random.h>
-
 static auto timet = std::chrono::high_resolution_clock::now() += std::chrono::seconds(1);
 static int fps = 0;
 static bool dir = false;
