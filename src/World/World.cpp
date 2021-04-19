@@ -15,7 +15,7 @@ World::World() {
 	graphics = PGE::Graphics::create("SCP: Janitorial Works", 1280, 720, false, PGE::Graphics::Renderer::OpenGL);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
 	graphics->setVsync(false);
-	io = PGE::IO::create(graphics);sdfg
+	io = PGE::IO::create(graphics);
 
 	lol = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
 
