@@ -11,16 +11,45 @@ static PGE::Mesh* sus;
 static PGE::Shader* aaa;
 static PGE::Shader* bbb;
 
+#include <unordered_set>
+
+using namespace PGE;
+
+#include <iostream>
+#include <io.h>
+#include <fcntl.h>
+#include "../../eng/Libraries/SDL2/include/SDL_messagebox.h"
+
+#include <Texture/Texture.h>
+
 World::World() {
-	graphics = PGE::Graphics::create("SCP: Janitorial Works", 1280, 720, false, PGE::Graphics::Renderer::OpenGL);
+	String ok19Dollar = "String";
+	Random* qwe = new Random(ok19Dollar);
+	//_setmode(_fileno(stdout), _O_WTEXT);
+
+	String lolasd = String(L"ß").toUpper();
+
+	String test = L"ẞaSSd\u1E9Easd";
+	std::wcout << test << std::endl;
+	std::wcout << test.toLower() << std::endl;
+	std::wcout << lolasd << std::endl;
+
+	for (PGE::wchar w : lolasd) {
+		std::wcout << w << std::endl;
+	}
+
+	graphics = PGE::Graphics::create("SCP: Janitorial Works", 1280, 720, false, PGE::Graphics::Renderer::DirectX11);
 	graphics->setViewport(PGE::Rectanglei(0, 0, 1280, 720));
 	graphics->setVsync(false);
 	io = PGE::IO::create(graphics);
 
-	lol = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
+	PGE::Texture* fudnny = PGE::Texture::createBlank(graphics, 100, 100, PGE::Texture::Format::R32F);
+	delete fudnny;
+
+	lol = Mesh::create(graphics, PGE::Primitive::Type::TRIANGLE);
 
 	aaa = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/UI/"));
-	aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
+	aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::WHITE);
 	lol->setMaterial(new PGE::Material(aaa));
 	PGE::Vertex v1;
 	v1.setVector2f("position", PGE::Vector2f(0.0f, 0.0f));
@@ -33,8 +62,8 @@ World::World() {
 	lol->setGeometry(3, funny, 1, unfunny);
 
 	bbb = PGE::Shader::load(graphics, PGE::FilePath::fromStr("Shaders/Test/"));
-	bbb->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::Yellow);
-	sus = PGE::Mesh::create(graphics, PGE::Primitive::TYPE::TRIANGLE);
+	bbb->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::YELLOW);
+	sus = PGE::Mesh::create(graphics, PGE::Primitive::Type::TRIANGLE);
 	sus->setMaterial(new PGE::Material(bbb));
 	std::vector<PGE::Vertex> lola;
 	std::vector<PGE::Primitive> lolb;
@@ -85,7 +114,7 @@ bool World::run() {
 	fps++;
 	SysEvents::update();
 	graphics->update();
-	graphics->clear(PGE::Color::Green);
+	graphics->clear(PGE::Color::GREEN);
 	//aaa->getFragmentShaderConstant("imageColor")->setValue(PGE::Color::White);
 	bbb->getVertexShaderConstant("bbbb")->setValue(PGE::Vector4f(0, pos, 0, 0));
 	pos += (dir ? 0.01f : -0.01f) * ((float)(std::chrono::high_resolution_clock::now() - stupidTime).count())/10000000;
